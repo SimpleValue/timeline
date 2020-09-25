@@ -1,18 +1,21 @@
 (ns sv.editor.timeline
   (:require [reagent.core :as r]
             [sv.editor.core :as editor-core]
-            [sv.timeline.resizehandler :as resizehandler]
-            [sv.timeline.core :as timeline]))
+            [sv.timeline.resizehandler :as resizehandler]))
 
 (defn set-element-start
-  [editor-element-state timeline-element-state duration x]
+  [editor-element-state duration x]
   (let [timeline (js/document.getElementById "timeline")
         timeline-width (.-clientWidth timeline)
         percentage (/ x
                      timeline-width)
         t-start (* percentage
-                  duration)]
-    (js/console.log "Change Start of " (:id @editor-element-state) " to " t-start)
+                  duration)
+        t-start (if (< t-start 0)
+                  0
+                  t-start)
+        t-start (/ (js/Math.round (* t-start 10))
+                  10)]
     (swap! editor-element-state assoc :start t-start)))
 
 (defn set-element-duration
@@ -22,69 +25,78 @@
         percentage (/ duration-px
                      timeline-width)
         t-duration (* percentage
-                     timeline-duration)]
-    (js/console.log "Change Duration of " (:id @element-state) " to " t-duration)
+                     timeline-duration)
+        t-duration (/ (js/Math.round (* t-duration 10))
+                  10)]
     (swap! element-state assoc :duration t-duration)))
 
 (defn get-element-start
-  [element-state duration]
-  (let [timeline (js/document.getElementById "timeline")
-        timeline-width (if timeline
-                         (.-clientWidth timeline)
-                         100)
+  [element-state timeline-state]
+  (let [timeline-parent (js/document.getElementById "timeline-parent")
+        default-width (if timeline-parent
+                        (- (.-clientWidth timeline-parent)
+                          32)
+                        100)
+        timeline-width (* (/ 1
+                            (:scale @timeline-state))
+                         default-width)
         start-s (or (:start @element-state)
-                    0)
+                  0)
         percentage (/ start-s
-                     duration)
+                     (:duration @timeline-state))
         start-px (* percentage
                    timeline-width)]
     start-px))
 
 (defn get-element-duration
-  [editor-element-state duration]
+  [editor-element-state timeline-state]
+  (let [timeline-parent (js/document.getElementById "timeline-parent")
+        default-width (if timeline-parent
+                        (- (.-clientWidth timeline-parent)
+                          32)
+                        100)
+        timeline-width (* (/ 1
+                            (:scale @timeline-state))
+                         default-width)
+        duration-s (:duration @editor-element-state)
+        percentage (/ duration-s
+                      (:duration @timeline-state))
+        duration-px (* percentage
+                       timeline-width)]
+    (js/console.log "Get Duration " duration-px)
+    duration-px))
+
+(defn get-grid
+  [timeline-duration]
   (let [timeline (js/document.getElementById "timeline")
         timeline-width (if timeline
                          (.-clientWidth timeline)
                          100)
-        duration-s (or (:duration @editor-element-state)
-                     duration)
-        percentage (/ duration-s
-                     duration)
-
-        scale (:scale @timeline/state)
-
-        duration-px (* percentage
-                       timeline-width)]
-    duration-px))
+        ;; all 100 ms
+        steps (/ (/ timeline-width
+                   timeline-duration)
+                10)]
+    [steps 1]))
 
 (defn layer-state
-  [layer-id object-id timeline-duration]
+  [object-id timeline-duration]
   (let [editor-element-state (r/cursor editor-core/editor-state [object-id])
-        timeline-element-state (r/atom {:x (get-element-start editor-element-state timeline-duration)
-                                        :y 0
-                                        :width (get-element-duration editor-element-state timeline-duration)
-                                        :height 100})
         attrs (:attrs @editor-element-state)]
     {:id object-id
      :object-id object-id
      :start (:start @editor-element-state)
      :duration (:duration @editor-element-state)
-     :onResize (fn [e dir ref delta p])
-     :onDrag (fn [e data])
-     :get-element-duration (fn []
-                             (get-element-duration editor-element-state timeline-duration))
-     :onResizeStop (fn [e d ref delta p]
-                     (swap! timeline-element-state assoc
-                       :width ref.offsetWidth
-                       :x p.x)
-                     (set-element-start editor-element-state timeline-element-state timeline-duration p.x)
-                     (set-element-duration editor-element-state timeline-duration ref.offsetWidth))
-
-     :onDragStop (fn [e data]
-                   (let [x data.x]
-                     (swap! timeline-element-state assoc :x x)
-                     (set-element-start editor-element-state timeline-element-state timeline-duration x)))
-     :timeline-element-state timeline-element-state
+     :onResize (fn [e dir ref delta p]
+                 (set-element-start editor-element-state timeline-duration p.x)
+                 (set-element-duration editor-element-state timeline-duration ref.offsetWidth))
+     :onDrag (fn [e data]
+               (set-element-start editor-element-state timeline-duration data.x))
+     :get-element-duration (fn [timeline-state]
+                             (get-element-duration editor-element-state timeline-state))
+     :get-element-start (fn [timeline-state]
+                          (get-element-start editor-element-state timeline-state))
+     :onResizeStop (fn [e d ref delta p])
+     :onDragStop (fn [e data])
      :child [:div
              {:key (str "child-" object-id)
               :style {:width "100%"
@@ -93,12 +105,17 @@
                       :background-repeat "repeat-x"
                       :background-size "contain"
                       :background-image (str "url(\"" (:src attrs) "\")")}}]
-     :resizeHandleComponent resizehandler/HandleComponents}))
+     :resizeHandleComponent resizehandler/HandleComponents
+     :grid (fn []
+             (get-grid timeline-duration))
+     }))
 
 (defn initial-state
-  [elements]
-  (js/console.log elements)
-  (let [timeline-duration 15]
+  []
+  (let [root-id (:root @editor-core/editor-state)
+        root-element (get @editor-core/editor-state root-id)
+        elements (:content root-element)
+        timeline-duration 1200]
     {:time/now 0
      :time/current 0
      :scale 1
@@ -108,7 +125,6 @@
                  (map
                    (fn [e]
                      (layer-state
-                       "layer-1"
                        e
                        timeline-duration))
                    elements)))}))

@@ -62,46 +62,54 @@
      (fn []
        [:div
         {:id "timeline-parent"
-         :style {:position "relative"
-                 :margin "0px 16px"
-                 :overflow-x "auto"}}
+         :style {:overflow-x "auto"}}
+
         (let [timeline-scale (:scale @timeline/state)
               timeline-parent (js/document.getElementById "timeline-parent")
               default-width (if timeline-parent
-                              (.-clientWidth timeline-parent)
+                              (- (.-clientWidth timeline-parent)
+                                32)
                               100)
-              timeline-width (* (/ 1 timeline-scale)
+              timeline-width (* (/ 1
+                                   timeline-scale)
                                default-width)]
-
-          [:div
-           {:id "timeline"
-            :style {:width (str timeline-width "px")}}
-
-           (let [now (:time/current @timeline/state)
-                 timeline (js/document.getElementById "timeline")
-                 percentage (/ now
-                              (:duration @timeline/state))
-                 t (* percentage
-                     (if timeline
-                       (.-clientWidth timeline)
-                       100))]
-
-             [:div {:style {:position "absolute"
-                            :background-color "black"
-                            :top -20
-                            :bottom 0
-                            :pointer-events "none"
-                            :left (- t (/ slider-width
-                                         2))
-                            :width (str slider-width "px")
-                            :z-index 10}}])
+          [:div {:style {:width (str timeline-width "px")}}
 
            [time-bar/component]
-           [timeline-seconds/component]
 
-           (map
-             (fn [layer]
-               ^{:key (:id layer)}
-               [layer/component layer])
-             (reverse
-               (:layers @timeline/state)))])])}))
+           [:div {:id "timeline"
+                  :style {:margin-left "16px"
+                          :margin-right "16px"
+                          :position "relative"}}
+
+            [timeline-seconds/component]
+
+            [:div {:style {:width "100%"}}
+
+             (let [now (:time/current* @timeline/state)
+                   timeline (js/document.getElementById "timeline")
+                   percentage (/ now
+                                (:duration @timeline/state))
+                   t (* percentage
+                       (if timeline
+                         (.-clientWidth timeline)
+                         100))]
+
+               [:div {:style {:position "absolute"
+                              :background-color "black"
+                              :top -20
+                              :bottom 0
+                              :pointer-events "none"
+                              :left (+ 2 (- t
+                                            (/ slider-width
+                                              2)))
+                              :width (str slider-width "px")
+                              :z-index 10}}])
+
+             (doall
+               (map
+                 (fn [layer]
+                   ^{:key (:id layer)}
+                   [layer/component layer timeline/state])
+                 (reverse
+                   (:layers @timeline/state))))]]])])}))

@@ -49,7 +49,7 @@
    play-fn is a stack of render steps."
   []
   (comp
-    prn-state
+    #_prn-state
     #_(timeline/stop-at {:stop-listener (fn []
                                           (.pause editor-audio/audio-element))})
     time-current
@@ -79,37 +79,30 @@
 (defn display-time
   []
   (let [current-time (if (> 0
-                           (:time/current @timeline/state))
+                           (:time/current* @timeline/state))
                        0
-                       (:time/current @timeline/state))
+                       (:time/current* @timeline/state))
         minutes (int (/ current-time
                        60))
         minutes (if (>= minutes 10)
                   minutes
                   (str "0" minutes))
-
         seconds (int (mod current-time
                        60))
         seconds (if (>= seconds 10)
                   seconds
                   (str "0" seconds))
-
         milliseconds (mod current-time
                        60)
-
-        milliseconds (int (* (- milliseconds (int milliseconds))
-                            1000))
-        milliseconds (if (>= milliseconds 100)
-                       milliseconds
-                       (str "0" milliseconds))]
-
+        milliseconds (js/Math.round
+                       (* (- milliseconds
+                            (int milliseconds))
+                         10))]
     [:div {:style {:font-weight "bold"
                    :background-color "#eee"
                    :padding "0px 15px"
                    :width "80px"}}
-     minutes ":" seconds ":" milliseconds]
-    )
-  )
+      minutes ":" seconds ":" milliseconds]))
 
 (defn play-button
   []

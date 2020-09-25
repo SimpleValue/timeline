@@ -1,23 +1,24 @@
 (ns sv.timeline.ui.bar
   (:require [sv.timeline.utils :as utils]
-            [sv.timeline.state :as state]))
+            [sv.timeline.core :as timeline]
+            [sv.timeline.controls :as controls]))
 
 (defn component
   []
   [:div
    [:input
     {:class "slider"
-     :style {:width "100%"
-             :margin "0px 0px 15px 0px"
-             :padding "0px"}
+     :style {:width "100%"}
      :type "range"
-     :min "0"
-     :step 1
-     :max (utils/s->ms (:duration @state/state))
-     :value (utils/s->ms (:time/current @state/state))
+     :min 0
+     ;; 100 ms steps
+     :step 100
+     :max (utils/s->ms (:duration @timeline/state))
+     :value (utils/s->ms (:time/current* @timeline/state))
      :onChange (fn [e]
                  (let [value e.target.value]
-
+                   (swap! timeline/state assoc :time/current* (/ value
+                                                                1000))
                    #_(swap! timeline/state (fn [state-value]
-                                          #_((controls/prepare-play-fn)
-                                            (assoc state-value :time/now value))))))}]])
+                                             ((controls/prepare-play-fn)
+                                              (assoc state-value :time/now value))))))}]])

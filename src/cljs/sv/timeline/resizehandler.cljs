@@ -24,11 +24,9 @@
       [:div {:id "right-handler"
              :key "right-handler"
              :onMouseEnter (fn [e]
-                             (reset! hovered? true)
-                             (js/console.log "ENTER " @hovered?))
+                             (reset! hovered? true))
              :onMouseLeave (fn [e]
-                             (reset! hovered? false)
-                             (js/console.log "LEAVE " @hovered?))
+                             (reset! hovered? false))
              :style {:height "100px"
                      :display "flex"
                      :justify-content "center"

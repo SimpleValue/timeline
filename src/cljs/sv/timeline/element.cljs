@@ -17,59 +17,32 @@
    :bottomLeft false
    :topLeft false})
 
-(defn get-element-start
-  [start]
-  (let [timeline (js/document.getElementById "timeline")
-        timeline-width (if timeline
-                         (.-clientWidth timeline)
-                         100)
-        start-s (or start 0)
-        percentage (/ start-s
-                     (:duration @timeline/state))
-        start-px (* percentage
-                   timeline-width)]
-    start-px))
-
-(defn get-element-duration
-  [timeline-duration object-duration]
-  (let [timeline (js/document.getElementById "timeline")
-        timeline-width (if timeline
-                         (.-clientWidth timeline)
-                         100)
-        duration-s (or object-duration
-                     timeline-duration)
-        percentage (/ duration-s
-                     timeline-duration)
-        duration-px (* percentage
-                      timeline-width)]
-    duration-px))
-
 (defn component
-  [layer]
-  (let [state (r/atom {:x 0
-                       :width 0})
-        ;; Event Functions
+  [layer timeline-state]
+  (let [;; Event Functions
         onResizeStop (:onResizeStop layer)
         onResize (:onResize layer)
         onDrag (:onDrag layer)
-        onDragStop (:onDragStop layer)]
+        onDragStop (:onDragStop layer)
+
+        get-grid (:grid layer)
+        duration-fn (:get-element-duration layer)
+        start-fn (:get-element-start layer)]
     (r/create-class
       {:component-did-mount
-       (fn [this]
-        (reset! state
-           {:width (get-element-duration (:duration @timeline/state) (:duration layer))
-            :x (get-element-start  (:start layer))}))
+       (fn [this])
        :reagent-render
        (fn []
          [Rnd
           {:enableResizing resize-map
-           ;:dragAxis "x"
            :scale 1
            :resizeHandleComponent (:resizeHandleComponent layer)
            :bounds "parent"
-           :position {:x (:x @state)
+           :resizeGrid (get-grid)
+           :dragGrid (get-grid)
+           :position {:x (start-fn timeline-state)
                       :y 0}
-           :size {:width (:width @state)
+           :size {:width (duration-fn timeline-state)
                   :height "100px"}
            :onResize (fn [e dir ref delta position]
                        (onResize e dir ref delta position))

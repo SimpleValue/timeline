@@ -117,8 +117,7 @@
   [element-state]
   (r/create-class
     {:component-did-mount
-     (fn [this]
-       #_(reset! object-state element-state))
+     (fn [this])
      :reagent-render
      (fn []
        (when (object-in-frame? element-state)
