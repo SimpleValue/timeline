@@ -1,0 +1,10 @@
+{:lein         true
+ :source-paths ["src"]
+ :nrepl {:port 4001}
+ :builds       {:app {:target     :browser
+                      :output-dir "resources/public/js"
+                      :asset-path "/js"
+                      :modules    {:app {:entries [animation-prototype.core]}}
+                      :devtools   {:after-load animation-prototype.core/mount-root}}}
+ :dev-http     {3000 {:root    "resources/public"
+                      :handler animation-prototype.handler/app}}}

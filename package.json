@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "shadow-cljs": "^2.10.14"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.14.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.0",
+    "react-rnd": "^10.2.2"
+  }
+}
