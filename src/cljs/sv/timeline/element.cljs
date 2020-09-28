@@ -51,5 +51,8 @@
            :onDrag (fn [e data]
                      (onDrag e data))
            :onDragStop (fn [e data]
-                         (onDragStop e data))}
+                         (onDragStop e data))
+           :onMouseDown (fn [e]
+                          (.preventDefault e)
+                          (.stopPropagation e))}
           (:child layer)])})))

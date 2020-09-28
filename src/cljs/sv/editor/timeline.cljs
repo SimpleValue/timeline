@@ -1,7 +1,8 @@
 (ns sv.editor.timeline
   (:require [reagent.core :as r]
             [sv.editor.core :as editor-core]
-            [sv.timeline.resizehandler :as resizehandler]))
+            [sv.timeline.resizehandler :as resizehandler]
+            [sv.timeline.utils :as utils]))
 
 (defn set-element-start
   [editor-element-state duration x]
@@ -14,8 +15,8 @@
         t-start (if (< t-start 0)
                   0
                   t-start)
-        t-start (/ (js/Math.round (* t-start 10))
-                  10)]
+        t-start (utils/round-seconds t-start)]
+    (js/console.log "SET START " t-start)
     (swap! editor-element-state assoc :start t-start)))
 
 (defn set-element-duration
@@ -33,14 +34,11 @@
 (defn get-element-start
   [element-state timeline-state]
   (let [timeline-parent (js/document.getElementById "timeline")
-        default-width (if timeline-parent
+        timeline-width (if timeline-parent
                         (.-clientWidth timeline-parent)
                         100)
-        timeline-width default-width #_(* (/ 1
-                            (:scale @timeline-state))
-                         default-width)
         start-s (or (:start @element-state)
-                  0)
+                    0)
         percentage (/ start-s
                      (:duration @timeline-state))
         start-px (* percentage
@@ -83,22 +81,25 @@
      :start (:start @editor-element-state)
      :duration (:duration @editor-element-state)
      :onResize (fn [e dir ref delta p]
+                 (.preventDefault e)
                  (.stopPropagation e)
                  (set-element-start editor-element-state timeline-duration p.x)
                  (set-element-duration editor-element-state timeline-duration ref.offsetWidth))
      :onDrag (fn [e data]
+               (.preventDefault e)
                (.stopPropagation e)
                (set-element-start editor-element-state timeline-duration data.x))
      :get-element-duration (fn [timeline-state]
                              (get-element-duration editor-element-state timeline-state))
      :get-element-start (fn [timeline-state]
                           (get-element-start editor-element-state timeline-state))
-     :onResizeStop (fn [e d ref delta p])
-     :onDragStop (fn [e data])
+     :onResizeStop (fn [e d ref delta p]
+                     (.preventDefault e))
+     :onDragStop (fn [e data]
+                   (.preventDefault e))
      :child [:div
              {:key (str "child-" object-id)
-              :style {:pointer-events "none"
-                      :width "100%"
+              :style {:width "100%"
                       :height "100%"
                       :background-color "gray"
                       :background-repeat "repeat"
@@ -114,7 +115,7 @@
   (let [root-id (:root @editor-core/editor-state)
         root-element (get @editor-core/editor-state root-id)
         elements (:content root-element)
-        timeline-duration 1200]
+        timeline-duration 30]
     {:time/now 0
      :time/current 0
      :scale 1

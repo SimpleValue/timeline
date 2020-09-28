@@ -47,13 +47,16 @@
                                "grabbing"
                                "grab")}
              :onMouseDown (fn [e]
+                            (.preventDefault e)
                             (swap! scroll-state assoc
                               :cursor-down? true
                               :x (.-clientX e)
                               :left (.-scrollLeft timeline-parent)))
              :onMouseUp (fn [e]
+                          (.preventDefault e)
                           (swap! scroll-state assoc :cursor-down? false))
              :onMouseLeave (fn [e]
+                             (.preventDefault e)
                              (swap! scroll-state assoc :cursor-down? false))
              :onMouseMove (fn [e]
                             (when (:cursor-down? @scroll-state)
@@ -64,7 +67,9 @@
                                             dx)]
                                 (set!
                                   (.-scrollLeft timeline-parent) new-x))))}
+
        [timeline-seconds/component]
+
        [:div {:style {:width "100%"}}
         [timeline-pointer]
         (doall
@@ -89,8 +94,7 @@
     [:div
      {:style {:width (str timeline-width "px")}}
      [time-bar/component]
-     [timeline timeline-parent]
-     ]))
+     [timeline timeline-parent]]))
 
 (defn component
   [timeline-state]
