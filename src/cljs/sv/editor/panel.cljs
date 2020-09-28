@@ -70,11 +70,10 @@
             [:div
              "Duration : " (:duration @element-cursor)
              " - Start : " (:start @element-cursor)]
-
             [:div
              "Duration : " (:duration @third-element-cursor)
-             " - Start : " (:start @third-element-cursor)]]
-           ])
+             " - Start : " (:start @third-element-cursor)]
+            ]])
 
         [:div
          {:id "timeline-controls"
@@ -84,6 +83,10 @@
          [controls/play-button]
          [controls/display-time]
          [controls/zoom-in-timeline]]
+
+        [:div {:style {:width "100%"
+                       :height "5px"
+                       :background-color "red"}}]
 
         (let [timeline-state (timeline-state/initial-state)]
           [:div

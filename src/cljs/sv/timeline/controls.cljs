@@ -67,13 +67,12 @@
              :margin "0px 0px 15px 0px"
              :padding "0px"}
      :type "range"
-     :min 0.1
-     :step 0.1
+     :min 0.05
+     :step 0.05
      :max 1
      :value (:scale @timeline/state)
      :onChange (fn [e]
                  (let [value e.target.value]
-                   (js/console.log "SCALE " value)
                    (swap! timeline/state assoc :scale value)))}]])
 
 (defn display-time
@@ -98,11 +97,12 @@
                        (* (- milliseconds
                             (int milliseconds))
                          10))]
-    [:div {:style {:font-weight "bold"
-                   :background-color "#eee"
-                   :padding "0px 15px"
-                   :width "80px"}}
-      minutes ":" seconds ":" milliseconds]))
+    [:div {:style {:background-color "#eee"
+                   :padding "0px 20px"
+                   :border-radius "20%"}}
+     [:p {:style {:font-weight "bold"
+                  :vertical-align "middle"}}
+      minutes ":" seconds ":" milliseconds]]))
 
 (defn play-button
   []

@@ -8,7 +8,8 @@
   [:div
    [:input
     {:class "slider"
-     :style {:width "100%"}
+     :style {:width "100%"
+             :background-color "#eee"}
      :type "range"
      :min 0
      ;; 100 ms steps
@@ -18,7 +19,4 @@
      :onChange (fn [e]
                  (let [value e.target.value]
                    (swap! timeline/state assoc :time/current* (/ value
-                                                                1000))
-                   #_(swap! timeline/state (fn [state-value]
-                                             ((controls/prepare-play-fn)
-                                              (assoc state-value :time/now value))))))}]])
+                                                                1000))))}]])

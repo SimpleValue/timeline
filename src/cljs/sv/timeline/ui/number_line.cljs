@@ -16,11 +16,18 @@
 
     [:div {:style {:display "flex"
                    :justify-content "space-between"}}
-
      (doall
        (map
          (fn [e]
-           [:div {:key (str "e-" e)
-                  :style {:width "10px"}}
-            e "s"])
+           [:div
+            {:key (str "e-" e)
+             :style {:width "0px"
+                     :display "flex"
+                     :justify-content "center"
+                     :flex-direction "column"
+                     :align-items "center"
+                     :background-color "red"}}
+            [:div e "s"]
+            [:i
+             {:class "fas fa-caret-down"}]])
          (reverse d)))]))
