@@ -1,9 +1,4 @@
-{:aliases
- {:cljs {:extra-paths ["src/cljs"]}}
-
- :paths ["src/clj" "src/cljc" "resources"]
-
-
+{:aliases {:cljs {:extra-paths ["src/cljs"]}}
  :deps {org.clojure/clojure {:mvn/version "1.10.1"},
         reagent {:mvn/version "0.10.0"},
         pez/clerk {:mvn/version "1.0.0"},
@@ -18,6 +13,4 @@
         venantius/accountant {:mvn/version "0.2.5", :exclusions [org.clojure/tools.reader]},
         com.google.javascript/closure-compiler-unshaded {:mvn/version "v20190325"},
         metosin/jsonista {:mvn/version "0.2.6"},
-        metosin/reitit {:mvn/version "0.5.1"}}
-
- }
+        metosin/reitit {:mvn/version "0.5.1"}}}
