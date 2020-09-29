@@ -1,12 +1,7 @@
 {:aliases
- {
-  :cljs {:extra-paths ["src/cljs"]}
-
-  }
+ {:cljs {:extra-paths ["src/cljs"]}}
 
  :paths ["src/clj" "src/cljc" "resources" "classes" "target/resources"]
-
- :mvn/repos {}
 
  :deps {org.clojure/clojure {:mvn/version "1.10.1"}
         ring-server {:mvn/version "0.5.0"}
@@ -23,6 +18,6 @@
         metosin/jsonista {:mvn/version "0.2.6"}
         pez/clerk {:mvn/version "1.0.0"}
         venantius/accountant {:mvn/version "0.2.5"
-                              :exclusions} [org.clojure/tools.reader
+                              :exclusions [org.clojure/tools.reader]}
         }
  }
