@@ -43,7 +43,7 @@
            :position {:x (start-fn timeline-state)
                       :y 0}
            :size {:width (duration-fn timeline-state)
-                  :height "100px"}
+                  :height (:height layer)}
            :onResize (fn [e dir ref delta position]
                        (onResize e dir ref delta position))
            :onResizeStop (fn [e, d, ref, delta, p]
