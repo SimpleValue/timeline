@@ -9,7 +9,8 @@
    [:input
     {:class "slider"
      :style {:width "100%"
-             :background-color "#eee"}
+             :background-color "#eee"
+             :cursor "pointer"}
      :type "range"
      :min 0
      ;; 100 ms steps

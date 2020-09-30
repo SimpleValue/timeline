@@ -28,7 +28,12 @@
               third-element-cursor (r/cursor editor-core/editor-state
                                      [third-element])
               element-cursor (r/cursor editor-core/editor-state
-                               [foreground-element])]
+                               [foreground-element])
+              background-cursor (r/cursor editor-core/editor-state
+                               [background-element])
+
+
+              ]
 
           [:div {:style {:display "flex"
                          :justify-content "center"
@@ -73,6 +78,9 @@
             [:div
              "Duration : " (:duration @third-element-cursor)
              " - Start : " (:start @third-element-cursor)]
+            [:div
+             "Duration : " (:duration @background-cursor)
+             " - Start : " (:start @background-cursor)]
             ]])
 
         [:div

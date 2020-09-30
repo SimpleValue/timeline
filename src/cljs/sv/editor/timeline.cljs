@@ -16,7 +16,6 @@
                   0
                   t-start)
         t-start (utils/round-seconds t-start)]
-    (js/console.log "SET START " t-start)
     (swap! editor-element-state assoc :start t-start)))
 
 (defn set-element-duration
@@ -53,7 +52,8 @@
                         100)
         timeline-width default-width
         duration-s (or (:duration @editor-element-state)
-                     (:duration @timeline-state))
+                     ;; Backup if no duration is set.
+                       (:duration @timeline-state))
         percentage (/ duration-s
                      (:duration @timeline-state))
         duration-px (* percentage
