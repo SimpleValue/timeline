@@ -3,7 +3,7 @@
          :extra-deps
          {reagent {:mvn/version "0.10.0"}}}}
 
- :paths ["src/clj" "src/cljc" "resources" "classes"]
+ :paths ["src/clj" "src/cljs" "src/cljc" "resources" "classes"]
 
  :deps {org.clojure/clojure {:mvn/version "1.10.1"},
         pez/clerk {:mvn/version "1.0.0"},
