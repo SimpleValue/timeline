@@ -5,7 +5,7 @@
   (r/as-element
     [:div {:id "left-handler"
            :key "left-handler"
-           :style {:height "100px"
+           :style {:height "100%"
                    :background-color "white"
                    :display "flex"
                    :justify-content "center"
@@ -27,7 +27,7 @@
                              (reset! hovered? true))
              :onMouseLeave (fn [e]
                              (reset! hovered? false))
-             :style {:height "100px"
+             :style {:height "100%"
                      :display "flex"
                      :justify-content "center"
                      :background-color "white"
