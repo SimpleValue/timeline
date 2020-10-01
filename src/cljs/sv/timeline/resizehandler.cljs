@@ -32,8 +32,8 @@
                      :justify-content "center"
                      :background-color "white"
                      :align-items "center"
-                     :border-top-right-radius "5px"
-                     :border-bottom-right-radius "5px"}}
+                     :border-top-right-radius "2px"
+                     :border-bottom-right-radius "2px"}}
        [:i
         {:class "fas fa-grip-lines-vertical"
          :style {:width "16px"

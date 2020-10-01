@@ -4,9 +4,9 @@
 
 (defn component
   []
-  (let [duration (or (:duration @timeline/state)
+  (let [duration (or (:duration @timeline-state)
                    0)
-        scale (or (:timeline/scale @timeline/state)
+        scale (or (:timeline/scale @timeline-state)
                 0)
         step-size (* (/ duration
                        10)

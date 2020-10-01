@@ -34,11 +34,11 @@
 (defn l [])
 
 (defn timeline
-  [timeline-parent]
+  [timeline-parent timeline-state]
   (let [scroll-state (r/atom {:x 0
                               :cursor-down? nil
                               :left 0})]
-    (fn [timeline-parent]
+    (fn [timeline-parent timeline-state]
       [:div {:id "timeline"
              :style {:margin-left "16px"
                      :margin-right "16px"
@@ -68,7 +68,7 @@
                                 (set!
                                   (.-scrollLeft timeline-parent) new-x))))}
 
-       [timeline-seconds/component]
+       [timeline-seconds/component timeline-state]
 
        [:div {:style {:width "100%"}}
         [timeline-pointer]
@@ -76,13 +76,13 @@
           (map
             (fn [layer]
               ^{:key (:id layer)}
-              [layer/component layer timeline/state])
+              [layer/component layer timeline-state])
             (reverse
-              (:timeline/layers @timeline/state))))]])))
+              (:timeline/layers @timeline-state))))]])))
 
 (defn inner-timeline
-  []
-  (let [timeline-scale (:timeline/scale @timeline/state)
+  [timeline-state]
+  (let [timeline-scale (:timeline/scale @timeline-state)
         timeline-parent (js/document.getElementById "timeline-parent")
         default-width (if timeline-parent
                         (- (.-clientWidth timeline-parent)
@@ -93,7 +93,7 @@
                          default-width)]
     [:div
      {:style {:width (str timeline-width "px")}}
-     [time-bar/component]
+     [time-bar/component timeline-state]
      [timeline timeline-parent]]))
 
 (defn component
@@ -101,11 +101,11 @@
   (r/create-class
     {:component-did-mount
      (fn [this]
-       (reset! timeline/state timeline-state))
+       #_(reset! timeline/state timeline-state))
      :reagent-render
      (fn []
        [:div
         {:id "timeline-parent"
          :style {:overflow-x "auto"
                  :user-select "none"}}
-        [inner-timeline]])}))
+        [inner-timeline timeline-state]])}))
