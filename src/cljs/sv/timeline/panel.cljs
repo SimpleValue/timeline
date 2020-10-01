@@ -82,7 +82,7 @@
 
 (defn inner-timeline
   []
-  (let [timeline-scale (:scale @timeline/state)
+  (let [timeline-scale (:timeline/scale @timeline/state)
         timeline-parent (js/document.getElementById "timeline-parent")
         default-width (if timeline-parent
                         (- (.-clientWidth timeline-parent)

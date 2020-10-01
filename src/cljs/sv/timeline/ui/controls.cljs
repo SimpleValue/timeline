@@ -12,10 +12,10 @@
      :min 1
      :step 1
      :max 100
-     :value (:scale @timeline/state)
+     :value (:timeline/scale @timeline/state)
      :onChange (fn [e]
                  (let [value e.target.value]
                    (js/console.log "SCALE " value)
-                   (swap! timeline/state assoc :scale value)))}]])
+                   (swap! timeline/state assoc :timeline/scale value)))}]])
 
 

@@ -6,7 +6,7 @@
   []
   (let [duration (or (:duration @timeline/state)
                    0)
-        scale (or (:scale @timeline/state)
+        scale (or (:timeline/scale @timeline/state)
                 0)
         step-size (* (/ duration
                        10)

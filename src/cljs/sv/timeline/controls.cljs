@@ -73,7 +73,7 @@
      :value (:scale @timeline/state)
      :onChange (fn [e]
                  (let [value e.target.value]
-                   (swap! timeline/state assoc :scale value)))}]])
+                   (swap! timeline/state assoc :timeline/scale value)))}]])
 
 (defn display-time
   []

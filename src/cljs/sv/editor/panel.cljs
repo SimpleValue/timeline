@@ -69,7 +69,7 @@
                (str "Inner timeline (scaled) Width in px = " t-width))]
 
             [:div
-             "Scale " (:scale @lib-timeline-state/state)]
+             "Scale " (:timeline/scale @lib-timeline-state/state)]
             [:div
              "Objects : "]
             [:div
