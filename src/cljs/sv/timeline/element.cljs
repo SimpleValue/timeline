@@ -55,4 +55,5 @@
            :onMouseDown (fn [e]
                           (.preventDefault e)
                           (.stopPropagation e))}
-          (:child layer)])})))
+          (:child layer)
+          ])})))

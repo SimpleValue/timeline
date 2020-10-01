@@ -79,6 +79,7 @@
         attrs (:attrs @editor-element-state)]
     {:id object-id
      :object-id object-id
+     :height 50
      :start (:start @editor-element-state)
      :duration (:duration @editor-element-state)
      :onResize (fn [e dir ref delta p]
@@ -121,7 +122,8 @@
      :time/current 0
      :duration timeline-duration
      :on-seek (fn [e]
-                (swap! timeline/state assoc :time/current* (/ e
+                (js/console.log "SET VALUE " )
+                (swap! timeline/state assoc :time/current* (/ e.target.value
                                                              1000)))
      :timeline/scale 1
      :timeline/layers (into []
