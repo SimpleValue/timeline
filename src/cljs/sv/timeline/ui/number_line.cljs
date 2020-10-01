@@ -3,7 +3,7 @@
             [sv.timeline.utils :as utils]))
 
 (defn component
-  []
+  [timeline-state]
   (let [duration (or (:duration @timeline-state)
                    0)
         scale (or (:timeline/scale @timeline-state)

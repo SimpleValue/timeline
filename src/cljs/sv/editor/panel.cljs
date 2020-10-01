@@ -30,8 +30,7 @@
               element-cursor (r/cursor editor-core/editor-state
                                [foreground-element])
               background-cursor (r/cursor editor-core/editor-state
-                               [background-element])
-
+                                  [background-element])
 
               ]
 
@@ -69,7 +68,8 @@
                (str "Inner timeline (scaled) Width in px = " t-width))]
 
             [:div
-             "Scale " (:timeline/scale @lib-timeline-state/state)]
+             ;"Scale " (:timeline/scale @lib-timeline-state/state)
+             ]
             [:div
              "Objects : "]
             [:div
@@ -96,7 +96,7 @@
                        :height "5px"
                        :background-color "red"}}]
 
-        (let [timeline-state (timeline-state/initial-state)]
+        (let [timeline-state (r/atom (timeline-state/initial-state))]
           [:div
            {:style {:width "80%"}}
            [timeline-panel/component timeline-state]])])}))

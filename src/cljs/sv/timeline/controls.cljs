@@ -110,7 +110,7 @@
    {:style {:border-radius "50%"
             :cursor "pointer"}
     :onClick (fn [e]
-               (let [play-fn (prepare-play-fn)]
+               #_(let [play-fn (prepare-play-fn)]
                  (swap! timeline/state assoc
                    :time/now* (js/performance.now)
                    :time/current 0
@@ -121,7 +121,7 @@
                  (when-not (:time/stopped @timeline/state)
                    (play! play-fn))))}
 
-   (if (:time/stopped @timeline/state)
+   #_(if (:time/stopped @timeline/state)
      "Play"
      "Stop")])
 

@@ -45,7 +45,6 @@
      (fn [this]
        (reset! timeline/state initial-state)
 
-
        )
      :reagent-render
      (fn []
@@ -64,9 +63,10 @@
          {:style {:display "flex"
                   :justify-content "space-between"}}
          [:div "0"]
-         [:div (str (:duration @timeline/state))]]
+         ;[:div (str (:duration @timeline/state))]
+         ]
 
-        [:div.slidecontainer
+        #_[:div.slidecontainer
          [:input#myRange.slider
           {:style {:width "100%"}
            :type "range"

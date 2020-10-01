@@ -10,11 +10,11 @@
   4)
 
 (defn timeline-pointer
-  []
-  (let [now (:time/current* @timeline/state)
+  [timeline-state]
+  (let [now (:time/current* @timeline-state)
         timeline (js/document.getElementById "timeline")
         percentage (/ now
-                     (:duration @timeline/state))
+                     (:duration @timeline-state))
         t (* percentage
             (if timeline
               (.-clientWidth timeline)
@@ -71,7 +71,7 @@
        [timeline-seconds/component timeline-state]
 
        [:div {:style {:width "100%"}}
-        [timeline-pointer]
+        [timeline-pointer timeline-state]
         (doall
           (map
             (fn [layer]
@@ -94,7 +94,7 @@
     [:div
      {:style {:width (str timeline-width "px")}}
      [time-bar/component timeline-state]
-     [timeline timeline-parent]]))
+     [timeline timeline-parent timeline-state]]))
 
 (defn component
   [timeline-state]

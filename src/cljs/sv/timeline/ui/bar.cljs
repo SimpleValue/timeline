@@ -19,4 +19,4 @@
      :value (utils/s->ms (:time/current* @timeline-state))
      :onChange (fn [e]
                  (let [seek-fn (:on-seek @timeline-state)]
-                   (seek-fn e)))}]])
+                   (seek-fn timeline-state e)))}]])

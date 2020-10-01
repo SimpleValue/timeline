@@ -2,8 +2,7 @@
   (:require [reagent.core :as r]
             [sv.editor.core :as editor-core]
             [sv.timeline.resizehandler :as resizehandler]
-            [sv.timeline.utils :as utils]
-            [sv.timeline.core :as timeline]))
+            [sv.timeline.utils :as utils]))
 
 (defn set-element-start
   [editor-element-state duration x]
@@ -121,10 +120,10 @@
     {:time/now 0
      :time/current 0
      :duration timeline-duration
-     :on-seek (fn [e]
-                (js/console.log "SET VALUE " )
-                (swap! timeline/state assoc :time/current* (/ e.target.value
-                                                             1000)))
+     :on-seek (fn [state e]
+                (js/console.log "SET VALUE ")
+                (swap! state assoc :time/current* (/ e.target.value
+                                                    1000)))
      :timeline/scale 1
      :timeline/layers (into []
                         (doall
