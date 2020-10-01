@@ -18,6 +18,5 @@
      :max (utils/s->ms (:duration @timeline/state))
      :value (utils/s->ms (:time/current* @timeline/state))
      :onChange (fn [e]
-                 (let [value e.target.value
-                       seek-fn (:seek-fn @timeline/state)]
-                   (seek-fn value)))}]])
+                 (let [seek-fn (:on-seek @timeline/state)]
+                   (seek-fn e)))}]])
