@@ -2,7 +2,8 @@
   (:require [reagent.core :as r]
             [sv.editor.core :as editor-core]
             [sv.timeline.resizehandler :as resizehandler]
-            [sv.timeline.utils :as utils]))
+            [sv.timeline.utils :as utils]
+            [sv.timeline.core :as timeline]))
 
 (defn set-element-start
   [editor-element-state duration x]
@@ -118,13 +119,16 @@
         timeline-duration 30]
     {:time/now 0
      :time/current 0
-     :scale 1
      :duration timeline-duration
-     :layers (into []
-               (doall
-                 (map
-                   (fn [e]
-                     (layer-state
-                       e
-                       timeline-duration))
-                   elements)))}))
+     :seek-fn (fn [e]
+                (swap! timeline/state assoc :time/current* (/ value
+                                                             1000)))
+     :timeline/scale 1
+     :timeline/layers (into []
+                        (doall
+                          (map
+                            (fn [e]
+                              (layer-state
+                                e
+                                timeline-duration))
+                            elements)))}))

@@ -78,7 +78,7 @@
               ^{:key (:id layer)}
               [layer/component layer timeline/state])
             (reverse
-              (:layers @timeline/state))))]])))
+              (:timeline/layers @timeline/state))))]])))
 
 (defn inner-timeline
   []
