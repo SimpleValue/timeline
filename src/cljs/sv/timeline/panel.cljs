@@ -15,7 +15,7 @@
         now (:time/current* state-value)
         timeline (js/document.getElementById "timeline")
         percentage (/ now
-                     (:duration state-value))
+                     (:duration params))
         t (* percentage
             (if timeline
               (.-clientWidth timeline)
@@ -94,7 +94,6 @@
                          default-width)]
     [:div
      {:style {:width (str timeline-width "px")}}
-     (get-in params [:timeline/state :time/current*])
 
      [time-bar/component params]
 

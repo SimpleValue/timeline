@@ -120,11 +120,10 @@
 
             [:div
              {:style {:width "80%"}}
-             (:time/current* @timeline-state)
              [timeline-panel/component params]])
 
           ])})))
 
 (comment
-  
+
   )

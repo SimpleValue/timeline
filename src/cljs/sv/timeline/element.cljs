@@ -25,7 +25,6 @@
      :reagent-render
      (fn [layer params]
        (let [;; Event Functions
-             state-value (:timeline/state params)
              onResizeStop (:onResizeStop layer)
              onResize (:onResize layer)
              onDrag (:onDrag layer)

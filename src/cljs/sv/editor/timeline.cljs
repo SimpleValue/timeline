@@ -113,8 +113,6 @@
 
 (defn initial-state
   []
-  (let [
-        timeline-duration 30]
+  (let [timeline-duration 30]
     {:time/now 0
-     :time/current 0
-     :duration timeline-duration}))
+     :time/current 0}))
