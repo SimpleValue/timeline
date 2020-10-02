@@ -36,6 +36,6 @@
                value "s"]
 
               [:i
-               {:style {:margin-top "-10px"}
+               {:style {:margin-top "-5px"}
                 :class "fas fa-caret-down"}]]))
          (reverse d)))]))
