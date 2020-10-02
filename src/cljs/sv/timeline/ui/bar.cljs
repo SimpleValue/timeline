@@ -4,8 +4,6 @@
   [params]
   (let [state (:timeline/state params)]
     [:div
-     (:time/current* state)
-
      [:input
       {:class "slider"
        :style {:width "100%"

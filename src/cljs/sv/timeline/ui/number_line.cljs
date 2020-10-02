@@ -29,7 +29,12 @@
                        :flex-direction "column"
                        :align-items "center"
                        :background-color "red"}}
-              [:div value "s"]
+              [:p
+               {:style {:margin-top "-5px"
+                        :margin-bottom "0px"}}
+               value "s"]
+
               [:i
-               {:class "fas fa-caret-down"}]]))
+               {:style {:margin-top "-10px"}
+                :class "fas fa-caret-down"}]]))
          (reverse d)))]))

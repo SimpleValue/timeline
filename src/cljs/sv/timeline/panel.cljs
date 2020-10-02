@@ -32,8 +32,6 @@
                    :width (str slider-width "px")
                    :z-index 10}}]))
 
-(defn l [])
-
 (defn timeline
   [timeline-parent params]
   (let [scroll-state (r/atom {:x 0
@@ -41,8 +39,8 @@
                               :left 0})]
     (fn [timeline-parent params]
       [:div {:id "timeline"
-             :style {:margin-left "16px"
-                     :margin-right "16px"
+             :style {:margin-left "8px"
+                     :margin-right "8px"
                      :position "relative"
                      :cursor (if (:cursor-down? @scroll-state)
                                "grabbing"
@@ -87,7 +85,7 @@
         timeline-parent (js/document.getElementById "timeline-parent")
         default-width (if timeline-parent
                         (- (.-clientWidth timeline-parent)
-                          32)
+                          16)
                         100)
         timeline-width (* (/ 1
                             timeline-scale)
