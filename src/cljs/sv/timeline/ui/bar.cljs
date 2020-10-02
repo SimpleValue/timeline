@@ -5,7 +5,7 @@
   (let [state (:timeline/state params)]
     [:div
      [:input
-      {:class "slider"
+      {:class "timeline"
        :style {:margin-top "0px"
                :margin-bottom "0px"
                :width "100%"
