@@ -1,7 +1,4 @@
-(ns sv.timeline.ui.bar
-  (:require [sv.timeline.utils :as utils]
-            [sv.timeline.core :as timeline]
-            [sv.timeline.controls :as controls]))
+(ns sv.timeline.ui.bar)
 
 (defn component
   [params]

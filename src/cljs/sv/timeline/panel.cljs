@@ -12,9 +12,9 @@
 (defn timeline-pointer
   [params]
   (let [state-value (:timeline/state params)
-        now (:time/current* state-value)
+        current (:time/current state-value)
         timeline (js/document.getElementById "timeline")
-        percentage (/ now
+        percentage (/ current
                      (:duration params))
         t (* percentage
             (if timeline
