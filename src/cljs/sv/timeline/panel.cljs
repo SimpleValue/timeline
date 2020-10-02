@@ -22,7 +22,7 @@
               100))]
 
     [:div {:style {:position "absolute"
-                   :background-color "black"
+                   :background-color (:timeline/primary-color params "black")
                    :top -20
                    :bottom 0
                    :pointer-events "none"
