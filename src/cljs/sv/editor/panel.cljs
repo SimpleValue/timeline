@@ -105,8 +105,8 @@
 
           (let [params {:timeline/state @timeline-state
                         :timeline/on-seek (fn [e]
-                                            (swap! timeline-state assoc :time/current* (/ e.target.value
-                                                                                         1000)))
+                                            (swap! timeline-state assoc :time/current (/ e.target.value
+                                                                                        1000)))
                         :duration timeline-duration
                         :timeline/scale 1
                         :timeline/layers (into []

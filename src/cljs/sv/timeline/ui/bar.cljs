@@ -7,6 +7,8 @@
   [params]
   (let [state (:timeline/state params)]
     [:div
+     (:time/current* state)
+
      [:input
       {:class "slider"
        :style {:width "100%"
@@ -15,9 +17,9 @@
        :type "range"
        :min 0
        ;; 100 ms steps
-       :step 100
-       :max (utils/s->ms (:duration params))
-       :value (utils/s->ms (:time/current* state))
+       :step 0.01
+       :max (:duration params)
+       :value (:time/current state)
        :onChange (fn [e]
                    (let [seek-fn (:timeline/on-seek params)]
                      (seek-fn e)))}]]))
