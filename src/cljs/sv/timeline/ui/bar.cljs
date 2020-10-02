@@ -6,7 +6,9 @@
     [:div
      [:input
       {:class "slider"
-       :style {:width "100%"
+       :style {:margin-top "0px"
+               :margin-bottom "0px"
+               :width "100%"
                :background-color "#eee"
                :cursor "pointer"}
        :type "range"

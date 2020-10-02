@@ -30,7 +30,8 @@
                        :align-items "center"
                        :background-color "red"}}
               [:p
-               {:style {:margin-top "-5px"
+               {:style {:font-size "12px"
+                        :margin-top "-5px"
                         :margin-bottom "0px"}}
                value "s"]
 
