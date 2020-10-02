@@ -10,11 +10,12 @@
   4)
 
 (defn timeline-pointer
-  [timeline-state]
-  (let [now (:time/current* @timeline-state)
+  [params]
+  (let [state-value (:timeline/state params)
+        now (:time/current* state-value)
         timeline (js/document.getElementById "timeline")
         percentage (/ now
-                     (:duration @timeline-state))
+                     (:duration state-value))
         t (* percentage
             (if timeline
               (.-clientWidth timeline)
@@ -34,11 +35,11 @@
 (defn l [])
 
 (defn timeline
-  [timeline-parent timeline-state]
+  [timeline-parent params]
   (let [scroll-state (r/atom {:x 0
                               :cursor-down? nil
                               :left 0})]
-    (fn [timeline-parent timeline-state]
+    (fn [timeline-parent params]
       [:div {:id "timeline"
              :style {:margin-left "16px"
                      :margin-right "16px"
@@ -68,21 +69,21 @@
                                 (set!
                                   (.-scrollLeft timeline-parent) new-x))))}
 
-       [timeline-seconds/component timeline-state]
+       [timeline-seconds/component params]
 
-       [:div {:style {:width "100%"}}
-        [timeline-pointer timeline-state]
+      [:div {:style {:width "100%"}}
+       [timeline-pointer params]
         (doall
           (map
             (fn [layer]
               ^{:key (:id layer)}
-              [layer/component layer timeline-state])
+              [layer/component layer params])
             (reverse
-              (:timeline/layers @timeline-state))))]])))
+              (:timeline/layers params))))]])))
 
 (defn inner-timeline
-  [timeline-state]
-  (let [timeline-scale (:timeline/scale @timeline-state)
+  [params]
+  (let [timeline-scale (:timeline/scale params)
         timeline-parent (js/document.getElementById "timeline-parent")
         default-width (if timeline-parent
                         (- (.-clientWidth timeline-parent)
@@ -93,19 +94,16 @@
                          default-width)]
     [:div
      {:style {:width (str timeline-width "px")}}
-     [time-bar/component timeline-state]
-     [timeline timeline-parent timeline-state]]))
+     (get-in params [:timeline/state :time/current*])
+
+     [time-bar/component params]
+
+     [timeline timeline-parent params]]))
 
 (defn component
-  [timeline-state]
-  (r/create-class
-    {:component-did-mount
-     (fn [this]
-       #_(reset! timeline/state timeline-state))
-     :reagent-render
-     (fn []
-       [:div
-        {:id "timeline-parent"
-         :style {:overflow-x "auto"
-                 :user-select "none"}}
-        [inner-timeline timeline-state]])}))
+  [params]
+  [:div
+   {:id "timeline-parent"
+    :style {:overflow-x "auto"
+            :user-select "none"}}
+   [inner-timeline params]])

@@ -31,7 +31,7 @@
     (swap! element-state assoc :duration t-duration)))
 
 (defn get-element-start
-  [element-state timeline-state]
+  [element-state params]
   (let [timeline-parent (js/document.getElementById "timeline")
         timeline-width (if timeline-parent
                         (.-clientWidth timeline-parent)
@@ -39,13 +39,13 @@
         start-s (or (:start @element-state)
                     0)
         percentage (/ start-s
-                     (:duration @timeline-state))
+                     (:duration params))
         start-px (* percentage
                    timeline-width)]
     start-px))
 
 (defn get-element-duration
-  [editor-element-state timeline-state]
+  [editor-element-state params]
   (let [timeline-parent (js/document.getElementById "timeline")
         default-width (if timeline-parent
                         (.-clientWidth timeline-parent)
@@ -53,9 +53,9 @@
         timeline-width default-width
         duration-s (or (:duration @editor-element-state)
                      ;; Backup if no duration is set.
-                       (:duration @timeline-state))
+                       (:duration params))
         percentage (/ duration-s
-                     (:duration @timeline-state))
+                     (:duration params))
         duration-px (* percentage
                       timeline-width)]
     duration-px))
@@ -90,10 +90,10 @@
                (.preventDefault e)
                (.stopPropagation e)
                (set-element-start editor-element-state timeline-duration data.x))
-     :get-element-duration (fn [timeline-state]
-                             (get-element-duration editor-element-state timeline-state))
-     :get-element-start (fn [timeline-state]
-                          (get-element-start editor-element-state timeline-state))
+     :get-element-duration (fn [params]
+                             (get-element-duration editor-element-state params))
+     :get-element-start (fn [params]
+                          (get-element-start editor-element-state params))
      :onResizeStop (fn [e d ref delta p]
                      (.preventDefault e))
      :onDragStop (fn [e data]
@@ -113,23 +113,8 @@
 
 (defn initial-state
   []
-  (let [root-id (:root @editor-core/editor-state)
-        root-element (get @editor-core/editor-state root-id)
-        elements (:content root-element)
+  (let [
         timeline-duration 30]
     {:time/now 0
      :time/current 0
-     :duration timeline-duration
-     :on-seek (fn [state e]
-                (js/console.log "SET VALUE ")
-                (swap! state assoc :time/current* (/ e.target.value
-                                                    1000)))
-     :timeline/scale 1
-     :timeline/layers (into []
-                        (doall
-                          (map
-                            (fn [e]
-                              (layer-state
-                                e
-                                timeline-duration))
-                            elements)))}))
+     :duration timeline-duration}))

@@ -3,10 +3,10 @@
             [sv.timeline.utils :as utils]))
 
 (defn component
-  [timeline-state]
-  (let [duration (or (:duration @timeline-state)
+  [params]
+  (let [duration (or (:duration params)
                    0)
-        scale (or (:timeline/scale @timeline-state)
+        scale (or (:timeline/scale params)
                 0)
         step-size (* (/ duration
                        10)

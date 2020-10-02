@@ -4,19 +4,20 @@
             [sv.timeline.controls :as controls]))
 
 (defn component
-  [timeline-state]
-  [:div
-   [:input
-    {:class "slider"
-     :style {:width "100%"
-             :background-color "#eee"
-             :cursor "pointer"}
-     :type "range"
-     :min 0
-     ;; 100 ms steps
-     :step 100
-     :max (utils/s->ms (:duration @timeline-state))
-     :value (utils/s->ms (:time/current* @timeline-state))
-     :onChange (fn [e]
-                 (let [seek-fn (:on-seek @timeline-state)]
-                   (seek-fn timeline-state e)))}]])
+  [params]
+  (let [state (:timeline/state params)]
+    [:div
+     [:input
+      {:class "slider"
+       :style {:width "100%"
+               :background-color "#eee"
+               :cursor "pointer"}
+       :type "range"
+       :min 0
+       ;; 100 ms steps
+       :step 100
+       :max (utils/s->ms (:duration params))
+       :value (utils/s->ms (:time/current* state))
+       :onChange (fn [e]
+                   (let [seek-fn (:timeline/on-seek params)]
+                     (seek-fn e)))}]]))

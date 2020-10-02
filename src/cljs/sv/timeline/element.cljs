@@ -18,21 +18,22 @@
    :topLeft false})
 
 (defn component
-  [layer timeline-state]
-  (let [;; Event Functions
-        onResizeStop (:onResizeStop layer)
-        onResize (:onResize layer)
-        onDrag (:onDrag layer)
-        onDragStop (:onDragStop layer)
+  [layer params]
+  (r/create-class
+    {:component-did-mount
+     (fn [this])
+     :reagent-render
+     (fn [layer params]
+       (let [;; Event Functions
+             state-value (:timeline/state params)
+             onResizeStop (:onResizeStop layer)
+             onResize (:onResize layer)
+             onDrag (:onDrag layer)
+             onDragStop (:onDragStop layer)
 
-        get-grid (:grid layer)
-        duration-fn (:get-element-duration layer)
-        start-fn (:get-element-start layer)]
-    (r/create-class
-      {:component-did-mount
-       (fn [this])
-       :reagent-render
-       (fn []
+             get-grid (:grid layer)
+             duration-fn (:get-element-duration layer)
+             start-fn (:get-element-start layer)]
          [Rnd
           {:enableResizing resize-map
            :scale 1
@@ -40,9 +41,9 @@
            :bounds "parent"
            :resizeGrid (get-grid)
            :dragGrid (get-grid)
-           :position {:x (start-fn timeline-state)
+           :position {:x (start-fn params)
                       :y 0}
-           :size {:width (duration-fn timeline-state)
+           :size {:width (duration-fn params)
                   :height (:height layer)}
            :onResize (fn [e dir ref delta position]
                        (onResize e dir ref delta position))
@@ -56,4 +57,6 @@
                           (.preventDefault e)
                           (.stopPropagation e))}
           (:child layer)
-          ])})))
+          ]))})
+
+  )

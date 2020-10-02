@@ -76,11 +76,11 @@
                    (swap! timeline/state assoc :timeline/scale value)))}]])
 
 (defn display-time
-  []
+  [statevalue]
   (let [current-time (if (> 0
-                           (:time/current* @timeline/state))
+                           (:time/current* statevalue))
                        0
-                       (:time/current* @timeline/state))
+                       (:time/current* statevalue))
         minutes (int (/ current-time
                        60))
         minutes (if (>= minutes 10)
