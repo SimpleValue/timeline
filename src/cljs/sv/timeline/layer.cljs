@@ -4,7 +4,8 @@
 (defn single-layer
   [layer params]
   [:div
-   {:style {:background-color "#eeeeee"
+   {:key (:id layer)
+    :style {:background-color "#eeeeee"
             :width "100%"
             :margin-top "5px"
             :height (:height layer)}}
@@ -15,7 +16,6 @@
   [:div
    (map
      (fn [layer]
-       ^{:key (:id layer)}
        (single-layer layer params))
      (reverse
        (:timeline/layers params)))])

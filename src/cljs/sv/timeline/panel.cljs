@@ -11,28 +11,31 @@
 
 (defn timeline-pointer
   [params]
-  (let [state-value (:timeline/state params)
-        current (:time/current state-value)
-        timeline (js/document.getElementById "timeline")
-        percentage (/ current
-                     (:duration params))
-        t (* percentage
-            (if timeline
-              (.-clientWidth timeline)
-              100))]
-
-    [:div {:style {:position "absolute"
-                   :background-color (:timeline/primary-color params "black")
-                   :top -10
-                   :bottom 0
-                   :pointer-events "none"
-                   :left (+ 2
-                           (- t
-                             (/ slider-width
-                               2)))
-                   :width (str slider-width "px")
-                   :z-index 10}}]))
-
+  (fn [params]
+    (let [state-value (:timeline/state params)
+          current (:time/current state-value)
+          timeline-parent (js/document.getElementById "timeline-parent")
+          timeline-parent-width (- (.-clientWidth timeline-parent) 32)
+          scale (:timeline/scale params)
+          timeline-width (* (/ 1 scale)
+                           timeline-parent-width)
+          percentage (/ current
+                       (:duration params))
+          t (* percentage
+              (if timeline-parent
+                timeline-width
+                100))]
+      [:div {:style {:position "absolute"
+                     :background-color (:timeline/primary-color params "black")
+                     :top -10
+                     :bottom 0
+                     :pointer-events "none"
+                     :left (+ 2
+                             (- t
+                               (/ slider-width
+                                 2)))
+                     :width (str slider-width "px")
+                     :z-index 10}}])))
 
 (defn timeline
   [timeline-parent params]
@@ -40,11 +43,11 @@
                               :cursor-down? nil
                               :left 0})]
     (fn [timeline-parent params]
-
       [:div {:id "timeline"
              :style {:margin-left "8px"
                      :margin-right "8px"
                      :position "relative"
+                     :background-color "red"
                      :cursor (if (:cursor-down? @scroll-state)
                                "grabbing"
                                "grab")}
@@ -69,10 +72,9 @@
                                             dx)]
                                 (set!
                                   (.-scrollLeft timeline-parent) new-x))))}
-
        [timeline-seconds/component params]
-
-      [:div {:style {:width "100%"}}
+      [:div {:style {:width "100%"
+                     :background-color "blue"}}
        [timeline-pointer params]
        [layer/component params]]])))
 
@@ -80,8 +82,6 @@
   [params]
   (fn [params]
     (let [timeline-scale (:timeline/scale params)
-          ;width (.-parentNode (js/document.getElementById ("myLI")))
-
           timeline-parent (js/document.getElementById "timeline-parent")
           default-width (if timeline-parent
                           (- (.-clientWidth timeline-parent)

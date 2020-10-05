@@ -90,16 +90,8 @@
                                elements (:content root-element)]
                            (swap! editor-core/editor-state assoc-in
                              [root-id :content]
-                             (reverse elements)))
-                         )}
-
-             "Change Objects"]
-
-            ]
-
-           ]
-
-          )
+                             (reverse elements))))}
+             "change objects order"]]])
 
         [:div
          {:id "timeline-controls"
@@ -114,7 +106,6 @@
                        :height "5px"
                        :background-color "red"}}]
 
-
         (let [root-id (:root @editor-core/editor-state)
               root-element (get @editor-core/editor-state root-id)
               elements (:content root-element)
@@ -123,7 +114,7 @@
                       :timeline/on-seek (fn [e]
                                           (swap! timeline-state assoc :time/current e.target.value))
                       :duration timeline-duration
-                      :timeline/scale 0.3
+                      :timeline/scale 1
                       :timeline/layers (into []
                                          (doall
                                            (map
@@ -136,9 +127,6 @@
           [:div
            {:style {:width "80%"
                     :height "200px"}}
-
-           params
-
            [timeline-panel/component params]])
 
         ])})

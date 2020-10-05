@@ -46,9 +46,13 @@
 
 (defn get-element-duration
   [editor-element-state params]
-  (let [timeline-parent (js/document.getElementById "timeline")
+  (let [timeline-parent (js/document.getElementById "timeline-parent")
+        timeline-parent-width (- (.-clientWidth timeline-parent) 16)
+        scale (:timeline/scale params)
+        timeline-width (* (/ 1 scale)
+                         timeline-parent-width)
         default-width (if timeline-parent
-                        (.-clientWidth timeline-parent)
+                        timeline-width
                         100)
         timeline-width default-width
         duration-s (or (:duration @editor-element-state)
