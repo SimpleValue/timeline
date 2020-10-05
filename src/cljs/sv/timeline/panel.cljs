@@ -66,8 +66,7 @@
                                 (set!
                                   (.-scrollLeft timeline-parent) new-x))))}
        [timeline-seconds/component params]
-      [:div {:style {:width "100%"
-                     :background-color "red"}}
+      [:div {:style {:width "100%"}}
        [timeline-pointer params timeline-width]
        [layer/component params timeline-width]]])))
 
@@ -84,9 +83,7 @@
                               timeline-scale)
                            default-width)]
       [:div
-       {:style {:width (str timeline-width "px")
-                :background-color "orange"}}
-       timeline-width
+       {:style {:width (str timeline-width "px")}}
        [time-bar/component params]
        [timeline timeline-parent params timeline-width]])))
 
@@ -95,6 +92,5 @@
   [:div
    {:id "timeline-parent"
     :style {:overflow-x "auto"
-            :user-select "none"
-            :background-color "yellow"}}
+            :user-select "none"}}
    [inner-timeline params]])

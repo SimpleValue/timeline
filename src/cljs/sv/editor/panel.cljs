@@ -123,12 +123,7 @@
                                                  e
                                                  timeline-duration))
                                              elements)))}]
-
           [:div
            {:style {:width "80%"
                     :height "200px"}}
-           [timeline-panel/component params]])
-
-        ])})
-
-  )
+           [timeline-panel/component params]])])}))
