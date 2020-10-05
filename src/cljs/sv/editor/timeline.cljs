@@ -47,7 +47,10 @@
 (defn get-element-duration
   [editor-element-state params]
   (let [timeline-parent (js/document.getElementById "timeline-parent")
-        timeline-parent-width (- (.-clientWidth timeline-parent) 16)
+        timeline-parent-width
+        (if timeline-parent
+          (- (.-clientWidth timeline-parent) 16)
+          100)
         scale (:timeline/scale params)
         timeline-width (* (/ 1 scale)
                          timeline-parent-width)

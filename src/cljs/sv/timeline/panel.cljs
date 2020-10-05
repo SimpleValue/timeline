@@ -10,15 +10,12 @@
   4)
 
 (defn timeline-pointer
-  [params]
-  (fn [params]
+  [params timeline-width]
+  (fn [params timeline-width]
     (let [state-value (:timeline/state params)
           current (:time/current state-value)
           timeline-parent (js/document.getElementById "timeline-parent")
-          timeline-parent-width (- (.-clientWidth timeline-parent) 32)
-          scale (:timeline/scale params)
-          timeline-width (* (/ 1 scale)
-                           timeline-parent-width)
+          timeline-width timeline-width
           percentage (/ current
                        (:duration params))
           t (* percentage
@@ -38,11 +35,11 @@
                      :z-index 10}}])))
 
 (defn timeline
-  [timeline-parent params]
+  [timeline-parent params timeline-width]
   (let [scroll-state (r/atom {:x 0
                               :cursor-down? nil
                               :left 0})]
-    (fn [timeline-parent params]
+    (fn [timeline-parent params timeline-width]
       [:div {:id "timeline"
              :style {:margin-left "8px"
                      :margin-right "8px"
@@ -75,7 +72,7 @@
        [timeline-seconds/component params]
       [:div {:style {:width "100%"
                      :background-color "blue"}}
-       [timeline-pointer params]
+       [timeline-pointer params timeline-width]
        [layer/component params]]])))
 
 (defn inner-timeline
@@ -96,7 +93,7 @@
 
        [time-bar/component params]
 
-       [timeline timeline-parent params]])))
+       [timeline timeline-parent params timeline-width]])))
 
 (defn component
   [params]
