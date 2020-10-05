@@ -37,9 +37,9 @@
                                                 :uuid #uuid"8ecb26a4-2c1f-471f-ac0e-b2fff4f47ea4"},
    #uuid"e7d0d46c-3ae6-43c2-bc0f-bcb4aa0acfe5" {:tag :ui/image
                                                 :layer "layer-1"
-                                                :start 2
-                                                :duration 10
-                                                :attrs {:id #uuid"e7d0d46c-3ae6-43c2-bc0f-bcb4aa0acfe5",
+                                                :attrs {:start 2
+                                                        :duration 10
+                                                        :id #uuid"e7d0d46c-3ae6-43c2-bc0f-bcb4aa0acfe5",
                                                         :src "img/image.jpeg",
                                                         :ui/data {:animations {:opacity {:keyframes [{:t 0
                                                                                                       :v 0
@@ -112,9 +112,9 @@
 
    #uuid"e7d0d46c-3ae6-43c2-bc0f-bcb4aa0acfe2" {:tag :ui/text
                                                 :layer "layer-3"
-                                                :start 0
-                                                :duration 5
-                                                :attrs {:id #uuid"e7d0d46c-3ae6-43c2-bc0f-bcb4aa0acfe2",
+                                                :attrs {:start 0
+                                                        :duration 5
+                                                        :id #uuid"e7d0d46c-3ae6-43c2-bc0f-bcb4aa0acfe2",
                                                         :src "img/img2.jpg",
                                                         :ui/data {:animations {:opacity {:keyframes [{:t 0
                                                                                                       :v 0

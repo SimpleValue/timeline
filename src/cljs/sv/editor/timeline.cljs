@@ -79,8 +79,8 @@
     {:id object-id
      :object-id object-id
      :height 50
-     :start (:start @editor-element-state)
-     :duration (:duration @editor-element-state)
+     :start (:start attrs)
+     :duration (:duration attrs)
      :onResize (fn [e dir ref delta p]
                  (.preventDefault e)
                  (.stopPropagation e)
