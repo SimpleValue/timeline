@@ -26,7 +26,6 @@
           onDrag (:onDrag layer)
           onDragStop (:onDragStop layer)
 
-          scale (:timeline/scale params)
           get-grid (:grid layer)
           duration-fn (:get-element-duration layer)
           start-fn (:get-element-start layer)]
@@ -52,7 +51,4 @@
         :onMouseDown (fn [e]
                        (.preventDefault e)
                        (.stopPropagation e))}
-       (:child layer)
-       ]))
-
-  )
+       (:child layer)])))

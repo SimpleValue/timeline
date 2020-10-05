@@ -9,6 +9,8 @@
             :width "100%"
             :margin-top "5px"
             :height (:height layer)}}
+   (js/console.log "RENDER"
+     (pr-str params))
    [element/component layer params]])
 
 (defn component
@@ -16,6 +18,6 @@
   [:div
    (map
      (fn [layer]
-       (single-layer layer params))
+       [single-layer layer params])
      (reverse
        (:timeline/layers params)))])
