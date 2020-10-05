@@ -44,7 +44,6 @@
              :style {:margin-left "8px"
                      :margin-right "8px"
                      :position "relative"
-                     :background-color "red"
                      :cursor (if (:cursor-down? @scroll-state)
                                "grabbing"
                                "grab")}
@@ -70,8 +69,7 @@
                                 (set!
                                   (.-scrollLeft timeline-parent) new-x))))}
        [timeline-seconds/component params]
-      [:div {:style {:width "100%"
-                     :background-color "blue"}}
+      [:div {:style {:width "100%"}}
        [timeline-pointer params timeline-width]
        [layer/component params]]])))
 
