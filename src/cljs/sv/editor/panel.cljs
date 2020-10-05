@@ -127,8 +127,6 @@
           [:div
            {:style {:width "80%"
                     :height "200px"}}
-           params
-
            [timeline-panel/component params]])
 
         ])})

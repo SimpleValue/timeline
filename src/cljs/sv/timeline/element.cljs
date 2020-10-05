@@ -18,8 +18,8 @@
    :topLeft false})
 
 (defn component
-  [layer params]
-  (fn [layer params]
+  [layer params timeline-width]
+  (fn [layer params timeline-width]
     (let [;; Event Functions
           onResizeStop (:onResizeStop layer)
           onResize (:onResize layer)
@@ -40,12 +40,12 @@
                    :y 0}
         :size {:width (duration-fn params)
                :height (:height layer)}
-        :onResize (fn [e dir ref delta position]
+        :onResize (fn [e dir ref delta position timeline-width]
                     (onResize e dir ref delta position))
         :onResizeStop (fn [e, d, ref, delta, p]
                         (onResizeStop e, d, ref, delta, p))
         :onDrag (fn [e data]
-                  (onDrag e data))
+                  (onDrag e data timeline-width))
         :onDragStop (fn [e data]
                       (onDragStop e data))
         :onMouseDown (fn [e]

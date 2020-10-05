@@ -6,8 +6,7 @@
     [:div
      [:input
       {:class "timeline"
-       :style {:margin-top "0px"
-               :margin-bottom "0px"
+       :style {:margin "0px"
                :width "100%"
                :background-color "#eee"
                :cursor "pointer"}

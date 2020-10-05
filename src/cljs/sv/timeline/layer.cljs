@@ -2,22 +2,20 @@
   (:require [sv.timeline.element :as element]))
 
 (defn single-layer
-  [layer params]
+  [layer params timeline-width]
   [:div
    {:key (:id layer)
     :style {:background-color "#eeeeee"
             :width "100%"
             :margin-top "5px"
             :height (:height layer)}}
-   (js/console.log "RENDER"
-     (pr-str params))
-   [element/component layer params]])
+   [element/component layer params timeline-width]])
 
 (defn component
-  [params]
+  [params timeline-width]
   [:div
    (map
      (fn [layer]
-       [single-layer layer params])
+       [single-layer layer params timeline-width])
      (reverse
        (:timeline/layers params)))])

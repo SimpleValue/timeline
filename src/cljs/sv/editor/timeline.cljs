@@ -20,8 +20,13 @@
 
 (defn set-element-duration
   [element-state timeline-duration duration-px]
-  (let [timeline (js/document.getElementById "timeline")
-        timeline-width (.-clientWidth timeline)
+  (let [timeline-parent (js/document.getElementById "timeline-parent")
+        timeline-parent-width (if timeline-parent
+                                (- (.-clientWidth timeline-parent) 16)
+                                100)
+        scale 1
+        timeline-width (* (/ 1 scale)
+                         timeline-parent-width)
         percentage (/ duration-px
                      timeline-width)
         t-duration (* percentage
@@ -47,10 +52,9 @@
 (defn get-element-duration
   [editor-element-state params]
   (let [timeline-parent (js/document.getElementById "timeline-parent")
-        timeline-parent-width
-        (if timeline-parent
-          (- (.-clientWidth timeline-parent) 16)
-          100)
+        timeline-parent-width (if timeline-parent
+                                (- (.-clientWidth timeline-parent) 16)
+                                100)
         scale (:timeline/scale params)
         timeline-width (* (/ 1 scale)
                          timeline-parent-width)

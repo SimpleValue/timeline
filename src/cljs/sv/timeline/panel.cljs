@@ -14,23 +14,20 @@
   (fn [params timeline-width]
     (let [state-value (:timeline/state params)
           current (:time/current state-value)
-          timeline-parent (js/document.getElementById "timeline-parent")
-          timeline-width timeline-width
+          timeline-width (- timeline-width
+                           16)
           percentage (/ current
                        (:duration params))
           t (* percentage
-              (if timeline-parent
-                timeline-width
-                100))]
+               timeline-width)]
       [:div {:style {:position "absolute"
                      :background-color (:timeline/primary-color params "black")
-                     :top -10
+                     :top -15
                      :bottom 0
                      :pointer-events "none"
-                     :left (+ 2
-                             (- t
-                               (/ slider-width
-                                 2)))
+                     :left (- t
+                             (/ slider-width
+                               2))
                      :width (str slider-width "px")
                      :z-index 10}}])))
 
@@ -69,9 +66,10 @@
                                 (set!
                                   (.-scrollLeft timeline-parent) new-x))))}
        [timeline-seconds/component params]
-      [:div {:style {:width "100%"}}
+      [:div {:style {:width "100%"
+                     :background-color "red"}}
        [timeline-pointer params timeline-width]
-       [layer/component params]]])))
+       [layer/component params timeline-width]]])))
 
 (defn inner-timeline
   [params]
@@ -85,12 +83,11 @@
           timeline-width (* (/ 1
                               timeline-scale)
                            default-width)]
-
       [:div
-       {:style {:width (str timeline-width "px")}}
-
+       {:style {:width (str timeline-width "px")
+                :background-color "orange"}}
+       timeline-width
        [time-bar/component params]
-
        [timeline timeline-parent params timeline-width]])))
 
 (defn component
@@ -98,5 +95,6 @@
   [:div
    {:id "timeline-parent"
     :style {:overflow-x "auto"
-            :user-select "none"}}
+            :user-select "none"
+            :background-color "yellow"}}
    [inner-timeline params]])
