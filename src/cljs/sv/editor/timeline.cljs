@@ -73,7 +73,7 @@
     duration-px))
 
 (defn get-grid
-  [timeline-duration]
+  [timeline-duration params]
   (let [timeline (js/document.getElementById "timeline")
         timeline-width (if timeline
                          (.-clientWidth timeline)
@@ -119,8 +119,8 @@
                       :background-size "contain"
                       :background-image (str "url(\"" (:src attrs) "\")")}}]
      :resizeHandleComponent resizehandler/HandleComponents
-     :grid (fn []
-             (get-grid timeline-duration))
+     :grid (fn [params]
+             (get-grid timeline-duration params))
      }))
 
 (defn initial-state

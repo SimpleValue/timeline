@@ -33,8 +33,8 @@
       :scale 1
       :resizeHandleComponent (:resizeHandleComponent layer)
       :bounds "parent"
-      :resizeGrid (get-grid)
-      :dragGrid (get-grid)
+      :resizeGrid (get-grid params)
+      :dragGrid (get-grid params)
       :position {:x (start-fn params)
                  :y 0}
       :size {:width (duration-fn params)
