@@ -69,6 +69,7 @@
                      (:duration params))
         duration-px (* percentage
                       timeline-width)]
+    (js/console.log "GET DURATION " duration-px)
     duration-px))
 
 (defn get-grid
@@ -92,12 +93,12 @@
      :height 50
      :start (:start attrs)
      :duration (:duration attrs)
-     :onResize (fn [e dir ref delta p]
+     :onResize (fn [e dir ref delta p params]
                  (.preventDefault e)
                  (.stopPropagation e)
                  (set-element-start editor-element-state timeline-duration p.x)
                  (set-element-duration editor-element-state timeline-duration ref.offsetWidth))
-     :onDrag (fn [e data]
+     :onDrag (fn [e data params]
                (.preventDefault e)
                (.stopPropagation e)
                (set-element-start editor-element-state timeline-duration data.x))
