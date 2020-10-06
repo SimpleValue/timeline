@@ -38,13 +38,13 @@ a:hover {
 }
 
 /* The slider itself */
-.slider {
+.timeline {
   -webkit-appearance: none;  /* Override default CSS styles */
   appearance: none;
   outline: none; /* Remove outline */
 }
 
-.slider::-webkit-slider-thumb {
+.timeline::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   cursor: pointer;
@@ -58,7 +58,7 @@ a:hover {
   border-color: black transparent transparent transparent;
 }
 
-.slider::-moz-range-thumb {
+.timeline::-moz-range-thumb {
   cursor: pointer;
   border-top-left-radius: 50%;
   border-top-right-radius: 50%;
