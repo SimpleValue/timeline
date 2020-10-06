@@ -108,12 +108,13 @@
         (let [root-id (:root @editor-core/editor-state)
               root-element (get @editor-core/editor-state root-id)
               elements (:content root-element)
-              timeline-duration 30
+              timeline-duration 15
               params {:timeline/state @timeline-state
                       :timeline/on-seek (fn [e]
                                           (swap! timeline-state assoc :time/current e.target.value))
                       :duration timeline-duration
-                      :timeline/scale 1
+                      :timeline/scale 0.1
+                      :timeline/steps 123
                       :timeline/layers (into []
                                          (doall
                                            (map

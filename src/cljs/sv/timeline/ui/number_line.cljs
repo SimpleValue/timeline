@@ -5,9 +5,9 @@
 (defn component
   [params]
   (let [duration (or (:duration params)
-                   0)
+                     0)
         scale (or (:timeline/scale params)
-                0)
+                  1)
         step-size (* (/ duration
                        10)
                     scale)
@@ -17,6 +17,9 @@
 
     [:div {:style {:display "flex"
                    :justify-content "space-between"}}
+
+     "STEPS" step-size
+
      (doall
        (map
          (fn [e]

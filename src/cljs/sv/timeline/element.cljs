@@ -39,12 +39,12 @@
                  :y 0}
       :size {:width (duration-fn params)
              :height (:height layer)}
-      :onResize (fn [e dir ref delta position timeline-width]
+      :onResize (fn [e dir ref delta position]
                   (onResize e dir ref delta position params))
       :onResizeStop (fn [e d ref delta p]
                       (onResizeStop e d ref delta p params))
       :onDrag (fn [e data]
-                (onDrag e data timeline-width))
+                (onDrag e data params))
       :onDragStop (fn [e data]
                     (onDragStop e data))
       :onMouseDown (fn [e]
