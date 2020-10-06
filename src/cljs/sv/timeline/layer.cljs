@@ -16,6 +16,6 @@
   [:div
    (map
      (fn [layer]
-       [single-layer layer params timeline-width])
+       (single-layer layer params timeline-width))
      (reverse
        (:timeline/layers params)))])

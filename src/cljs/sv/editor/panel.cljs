@@ -4,8 +4,7 @@
             [sv.editor.element :as element]
             [sv.timeline.controls :as controls]
             [sv.timeline.panel :as timeline-panel]
-            [sv.editor.timeline :as timeline-state]
-            [sv.timeline.core :as lib-timeline-state]))
+            [sv.editor.timeline :as timeline-state]))
 
 (defonce timeline-state
   (r/atom (timeline-state/initial-state)))
