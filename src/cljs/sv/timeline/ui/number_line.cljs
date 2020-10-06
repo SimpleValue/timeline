@@ -17,9 +17,7 @@
 
     [:div {:style {:display "flex"
                    :justify-content "space-between"}}
-
-     "STEPS" step-size
-
+     
      (doall
        (map
          (fn [e]
