@@ -19,36 +19,35 @@
 
 (defn component
   [layer params timeline-width]
-  (fn [layer params timeline-width]
-    (let [;; Event Functions
-          onResizeStop (:onResizeStop layer)
-          onResize (:onResize layer)
-          onDrag (:onDrag layer)
-          onDragStop (:onDragStop layer)
+  (let [;; Event Functions
+        onResizeStop (:onResizeStop layer)
+        onResize (:onResize layer)
+        onDrag (:onDrag layer)
+        onDragStop (:onDragStop layer)
 
-          get-grid (:grid layer)
-          duration-fn (:get-element-duration layer)
-          start-fn (:get-element-start layer)]
-      [Rnd
-       {:enableResizing resize-map
-        :scale 1
-        :resizeHandleComponent (:resizeHandleComponent layer)
-        :bounds "parent"
-        :resizeGrid (get-grid)
-        :dragGrid (get-grid)
-        :position {:x (start-fn params)
-                   :y 0}
-        :size {:width (duration-fn params)
-               :height (:height layer)}
-        :onResize (fn [e dir ref delta position timeline-width]
-                    (onResize e dir ref delta position))
-        :onResizeStop (fn [e, d, ref, delta, p]
-                        (onResizeStop e, d, ref, delta, p))
-        :onDrag (fn [e data]
-                  (onDrag e data timeline-width))
-        :onDragStop (fn [e data]
-                      (onDragStop e data))
-        :onMouseDown (fn [e]
-                       (.preventDefault e)
-                       (.stopPropagation e))}
-       (:child layer)])))
+        get-grid (:grid layer)
+        duration-fn (:get-element-duration layer)
+        start-fn (:get-element-start layer)]
+    [Rnd
+     {:enableResizing resize-map
+      :scale 1
+      :resizeHandleComponent (:resizeHandleComponent layer)
+      :bounds "parent"
+      :resizeGrid (get-grid)
+      :dragGrid (get-grid)
+      :position {:x (start-fn params)
+                 :y 0}
+      :size {:width (duration-fn params)
+             :height (:height layer)}
+      :onResize (fn [e dir ref delta position timeline-width]
+                  (onResize e dir ref delta position))
+      :onResizeStop (fn [e, d, ref, delta, p]
+                      (onResizeStop e, d, ref, delta, p))
+      :onDrag (fn [e data]
+                (onDrag e data timeline-width))
+      :onDragStop (fn [e data]
+                    (onDragStop e data))
+      :onMouseDown (fn [e]
+                     (.preventDefault e)
+                     (.stopPropagation e))}
+     (:child layer)]))
