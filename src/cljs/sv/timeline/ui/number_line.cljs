@@ -2,8 +2,6 @@
   (:require [sv.timeline.core :as timeline]
             [sv.timeline.utils :as utils]))
 
-(defn time)
-
 (defn component
   [params]
   (let [duration (:duration params 0)
@@ -28,8 +26,8 @@
                        :display "flex"
                        :justify-content "center"
                        :flex-direction "column"
-                       :align-items "flex-start"
-                       :background-color "red"}}
+                       :align-items "center"
+                       :background-color "blue"}}
               [:p
                {:style {:font-size "12px"
                         :margin-top "-5px"
