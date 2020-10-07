@@ -25,8 +25,7 @@
 (defn get-pixel-step-size
   [duration-s timeline-width]
   (let [step-px (/ timeline-width duration-s)]
-    step-px
-    ))
+    step-px))
 
 (defn number [e m step-size]
   (let [value (utils/round-seconds e)
@@ -73,4 +72,4 @@
       [:p
        {:style {:margin "0px"
                 :font-size "12px"}}
-       (str duration "s" "|")]]]))
+       (str (int duration) "s" "|")]]]))
