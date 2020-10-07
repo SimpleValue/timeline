@@ -2,12 +2,12 @@
   (:require [sv.timeline.core :as timeline]
             [sv.timeline.utils :as utils]))
 
+(defn time)
+
 (defn component
   [params]
-  (let [duration (or (:duration params)
-                     0)
-        scale (or (:timeline/scale params)
-                  1)
+  (let [duration (:duration params 0)
+        scale (:timeline/scale params 1)
         step-size (* (/ duration
                        10)
                     scale)
@@ -17,7 +17,7 @@
 
     [:div {:style {:display "flex"
                    :justify-content "space-between"}}
-     
+
      (doall
        (map
          (fn [e]
@@ -28,7 +28,7 @@
                        :display "flex"
                        :justify-content "center"
                        :flex-direction "column"
-                       :align-items "center"
+                       :align-items "flex-start"
                        :background-color "red"}}
               [:p
                {:style {:font-size "12px"

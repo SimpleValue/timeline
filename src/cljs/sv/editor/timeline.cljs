@@ -69,7 +69,6 @@
                      (:duration params))
         duration-px (* percentage
                       timeline-width)]
-    (js/console.log "GET DURATION " duration-px)
     duration-px))
 
 (defn get-grid
