@@ -108,7 +108,7 @@
         (let [root-id (:root @editor-core/editor-state)
               root-element (get @editor-core/editor-state root-id)
               elements (:content root-element)
-              timeline-duration 15
+              timeline-duration 120
               params {:timeline/state @timeline-state
                       :timeline/on-seek (fn [e]
                                           (swap! timeline-state assoc :time/current e.target.value))

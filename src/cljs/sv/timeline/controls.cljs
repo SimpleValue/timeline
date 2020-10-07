@@ -78,9 +78,9 @@
 (defn display-time
   [statevalue]
   (let [current-time (if (> 0
-                           (:time/current* statevalue))
+                           (:time/current statevalue))
                        0
-                       (:time/current* statevalue))
+                       (:time/current statevalue))
         minutes (int (/ current-time
                        60))
         minutes (if (>= minutes 10)
@@ -102,6 +102,8 @@
                    :border-radius "20%"}}
      [:p {:style {:font-weight "bold"
                   :vertical-align "middle"}}
+      current-time
+      " - "
       minutes ":" seconds ":" milliseconds]]))
 
 (defn play-button

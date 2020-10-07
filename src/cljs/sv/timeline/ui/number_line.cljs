@@ -2,39 +2,75 @@
   (:require [sv.timeline.core :as timeline]
             [sv.timeline.utils :as utils]))
 
-(defn component
-  [params]
-  (let [duration (:duration params 0)
-        scale (:timeline/scale params 1)
-        step-size (* (/ duration
-                       10)
-                    scale)
-        d (range 0 duration step-size)
-        d (reverse d)
-        d (conj d duration)]
+(defn get-step-size
+  [duration-s timeline-width scale]
+  (cond
+    (<= duration-s 30)
+    5
 
-    [:div {:style {:display "flex"
-                   :justify-content "space-between"}}
+    (<= duration-s 300)
+    10
+
+    (<= duration-s 100)
+    20
+
+    (<= duration-s 300)
+    60
+
+    ::else
+    1
+    )
+  )
+
+(defn get-pixel-step-size
+  [duration-s timeline-width]
+  (let [step-px (/ timeline-width duration-s)]
+    step-px
+    ))
+
+(defn number [e m step-size]
+  (let [value (utils/round-seconds e)
+        v (/ e step-size)]
+    [:div
+     {:key (str "e-" e)
+      :style {:margin "0px"
+              :position "absolute"
+              :left (str (* v m) "px")}}
+     [:p
+      {:style {:margin "0px"
+               :font-size "12px"}}
+      (str "|" value "s")]]))
+
+(defn component
+  [params timeline-width]
+  (let [timeline-width (- timeline-width 16)
+        duration (:duration params 0)
+        scale (:timeline/scale params 1)
+        step-size (get-step-size duration timeline-width scale)
+        step-px (get-pixel-step-size duration timeline-width)
+        as (* step-size
+              step-px)
+        d (range 0 duration step-size)
+        d (reverse d)]
+
+    [:div {:style {:height "20px"
+                   :position "relative"}}
+
+     [number 0 0 step-size]
 
      (doall
        (map
          (fn [e]
-           (let [value (utils/round-seconds e)]
-             [:div
-              {:key (str "e-" e)
-               :style {:width "0px"
-                       :display "flex"
-                       :justify-content "center"
-                       :flex-direction "column"
-                       :align-items "center"
-                       :background-color "blue"}}
-              [:p
-               {:style {:font-size "12px"
-                        :margin-top "-5px"
-                        :margin-bottom "0px"}}
-               value "s"]
+           (when (not= e 0)
+             [number e as step-size]))
+         (reverse d)))
 
-              [:i
-               {:style {:margin-top "-5px"}
-                :class "fas fa-caret-down"}]]))
-         (reverse d)))]))
+     [:div
+      {:key (str "e-" duration)
+       :style {:margin "0px"
+               :position "absolute"
+               :right "0px"}}
+      [:p
+       {:style {:margin "0px"
+                :font-size "12px"}}
+       (str duration "s" "|")]]]))

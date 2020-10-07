@@ -65,7 +65,7 @@
                                             dx)]
                                 (set!
                                   (.-scrollLeft timeline-parent) new-x))))}
-       [timeline-seconds/component params]
+       [timeline-seconds/component params timeline-width]
       [:div {:style {:width "100%"}}
        [timeline-pointer params timeline-width]
        [layer/component params timeline-width]]])))
