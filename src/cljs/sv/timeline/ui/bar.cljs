@@ -13,7 +13,9 @@
        :type "range"
        :min 0
        ;; 100 ms steps
-       :step 0.1
+       :step (if (:time/stopped state)
+               0.1
+               0.01)
        :max (:duration params)
        :value (:time/current state)
        :onChange (fn [e]
