@@ -2,7 +2,7 @@
 
 This provides a timeline for web editors. 
 
-![alt text](/img/screenshot.png "Logo Title Text 1")
+![alt text](https://github.com/SimpleValue/timeline/blob/master/resources/public/img/readme/screenshot.png "Logo Title Text 1")
 
 ## Add this Library as dependency
 
