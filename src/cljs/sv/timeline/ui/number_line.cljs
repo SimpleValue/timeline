@@ -8,9 +8,6 @@
     (<= duration-s 30)
     5
 
-    (<= duration-s 300)
-    10
-
     (<= duration-s 100)
     20
 
@@ -18,7 +15,7 @@
     60
 
     ::else
-    1
+    60
     )
   )
 
@@ -27,9 +24,9 @@
   (let [step-px (/ timeline-width duration-s)]
     step-px))
 
-(defn number [e m step-size]
+(defn number [e m step-t]
   (let [value (utils/round-seconds e)
-        v (/ e step-size)]
+        v (/ e step-t)]
     [:div
      {:key (str "e-" e)
       :style {:margin "0px"

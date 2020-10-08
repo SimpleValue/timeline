@@ -102,8 +102,6 @@
                    :border-radius "20%"}}
      [:p {:style {:font-weight "bold"
                   :vertical-align "middle"}}
-      current-time
-      " - "
       minutes ":" seconds ":" milliseconds]]))
 
 (defn play-button

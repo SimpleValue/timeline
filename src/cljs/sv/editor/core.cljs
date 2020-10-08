@@ -1,6 +1,6 @@
 (ns sv.editor.core
   (:require [reagent.core :as r]
-            [sv.animation.utils.functions :as api]))
+            [animation-prototype.api :as api]))
 
 (def sample-editor-state
   {:root #uuid"c7601b95-cad5-418c-a18f-0e0224763455",

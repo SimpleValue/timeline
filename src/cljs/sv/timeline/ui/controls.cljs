@@ -15,7 +15,6 @@
      :value (:timeline/scale @timeline/state)
      :onChange (fn [e]
                  (let [value e.target.value]
-                   (js/console.log "SCALE " value)
                    (swap! timeline/state assoc :timeline/scale value)))}]])
 
 

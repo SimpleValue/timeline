@@ -1,7 +1,7 @@
 (ns sv.editor.element
   (:require [sv.timeline.core :as timeline]
             [reagent.core :as r]
-            [sv.animation.utils.functions :as api]))
+            [animation-prototype.api :as api]))
 
 (defn object-in-frame?
   [element-state]

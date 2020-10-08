@@ -6,7 +6,13 @@ This provides a timeline for web editors.
 
 ## Add this Library as dependency
 
+Just add the following dependency to your deps.edn file : 
 
+```
+SimpleValue/timeline
+          {:git/url "https://github.com/SimpleValue/timeline.git"
+           :sha "2974426e48c979d8463af2f6a5a2f4544d46a65b"}
+```
 
 ## Development mode
 
