@@ -28,8 +28,7 @@
   (let [value (utils/round-seconds e)
         v (/ e step-t)]
     [:div
-     {:key (str "e-" e)
-      :style {:margin "0px"
+     {:style {:margin "0px"
               :position "absolute"
               :left (str (* v m) "px")}}
      [:p
@@ -58,6 +57,7 @@
        (map
          (fn [e]
            (when (not= e 0)
+             ^{:key (str "e-" e)}
              [number e as step-size]))
          (reverse d)))
 
