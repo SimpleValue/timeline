@@ -65,6 +65,9 @@
                                             dx)]
                                 (set!
                                   (.-scrollLeft timeline-parent) new-x))))}
+
+
+
        [timeline-seconds/component params timeline-width]
       [:div {:style {:width "100%"}}
        [timeline-pointer params timeline-width]
@@ -82,12 +85,14 @@
           timeline-width (* (/ 1
                               timeline-scale)
                            default-width)]
+
       [:div
        {:style {:width (str timeline-width "px")}}
        [time-bar/component params]
        [timeline timeline-parent params timeline-width]])))
 
 (defn component
+  "Component which is used by Audiocado to display the timeline"
   [params]
   [:div
    {:id "timeline-parent"

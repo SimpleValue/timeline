@@ -28,8 +28,11 @@
         get-grid (:grid layer)
         duration-fn (:get-element-duration layer)
         start-fn (:get-element-start layer)]
+
     [Rnd
-     {:enableResizing resize-map
+     {:id (str "parent-" (:id layer))
+      :style {:width (:id layer)}
+      :enableResizing resize-map
       :scale 1
       :resizeHandleComponent (:resizeHandleComponent layer)
       :bounds "parent"
@@ -50,4 +53,5 @@
       :onMouseDown (fn [e]
                      (.preventDefault e)
                      (.stopPropagation e))}
-     (:child layer)]))
+     (:child layer)])
+  )

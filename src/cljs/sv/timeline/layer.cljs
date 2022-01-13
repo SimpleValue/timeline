@@ -7,15 +7,17 @@
    {:style {:background-color "#eeeeee"
             :width "100%"
             :margin-top "5px"
-            :height (:height layer)}}
+            :height (:height layer)
+            :position "relative"}}
    [element/component layer params timeline-width]])
 
 (defn component
   [params timeline-width]
   [:div
-   (map
-     (fn [layer]
-       ^{:key (:id layer)}
-       [single-layer layer params timeline-width])
-     (reverse
-       (:timeline/layers params)))])
+   (doall
+     (map
+       (fn [layer]
+            ^{:key (:id layer)}
+         [single-layer layer params timeline-width])
+          (reverse
+            (:timeline/layers params))))])
