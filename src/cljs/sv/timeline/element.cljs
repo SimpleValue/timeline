@@ -31,7 +31,6 @@
 
     [Rnd
      {:id (str "parent-" (:id layer))
-      :style {:width (:id layer)}
       :enableResizing resize-map
       :scale 1
       :resizeHandleComponent (:resizeHandleComponent layer)
