@@ -70,7 +70,7 @@
      :min 0.05
      :step 0.05
      :max 1
-     :value (:scale @timeline/state)
+     :value (:timeline/scale @timeline/state)
      :onChange (fn [e]
                  (let [value e.target.value]
                    (swap! timeline/state assoc :timeline/scale value)))}]])

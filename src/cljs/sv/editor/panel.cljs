@@ -4,7 +4,8 @@
             [sv.editor.element :as element]
             [sv.timeline.controls :as controls]
             [sv.timeline.panel :as timeline-panel]
-            [sv.editor.timeline :as timeline-state]))
+            [sv.editor.timeline :as timeline-state]
+            [sv.timeline.core :as timeline]))
 
 (defonce timeline-state
   (r/atom (timeline-state/initial-state)))
@@ -113,7 +114,7 @@
                       :timeline/on-seek (fn [e]
                                           (swap! timeline-state assoc :time/current e.target.value))
                       :duration timeline-duration
-                      :timeline/scale 0.1
+                      :timeline/scale (:timeline/scale @timeline/state)
                       :timeline/steps 123
                       :timeline/layers (into []
                                          (doall
